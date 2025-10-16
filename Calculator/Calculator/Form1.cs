@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Calculator
@@ -15,95 +8,23 @@ namespace Calculator
         public Form1()
         {
             InitializeComponent();
+            button0.Click += ButtonNumberClick;
+            button1.Click += ButtonNumberClick;
+            button2.Click += ButtonNumberClick;
+            button3.Click += ButtonNumberClick;
+            button4.Click += ButtonNumberClick;
+            button5.Click += ButtonNumberClick;
+            button6.Click += ButtonNumberClick;
+            button7.Click += ButtonNumberClick;
+            button8.Click += ButtonNumberClick;
+            button9.Click += ButtonNumberClick;
         }
 
         bool newInputAllowed = true;
-        //Обработка нажатия по цифрам
-        #region  
-        //Нажатие на цифру 1
-        private void button1_Click(object sender, EventArgs e)
-        {
-            button1.PutAwayFocus();
-            button1.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt,ref newInputAllowed);
-            button1.OutputText(textBoxEnter);
-        }
-        //Нажатие на цифру 2
-        private void button2_Click(object sender, EventArgs e)
-        {
-            button2.PutAwayFocus();
-            button2.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-            button2.OutputText(textBoxEnter);
-        }
-        //Нажатие на цифру 3
-        private void button3_Click(object sender, EventArgs e)
-        {
-            button3.PutAwayFocus();
-            button3.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-            button3.OutputText(textBoxEnter);
-        }
-        //Нажатие на цифру 4
-        private void button4_Click(object sender, EventArgs e)
-        {
-            button4.PutAwayFocus();
-            button4.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-            button4.OutputText(textBoxEnter);
-        }
-        //Нажатие на цифру 5
-        private void button5_Click(object sender, EventArgs e)
-        {
-            button5.PutAwayFocus();
-            button5.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-            button5.OutputText(textBoxEnter);
-        }
-        //Нажатие на цифру 6
-        private void button6_Click(object sender, EventArgs e)
-        {
-            button6.PutAwayFocus();
-            button6.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-            button6.OutputText(textBoxEnter);
-        }
-        //Нажатие на цифру 7
-        private void button7_Click(object sender, EventArgs e)
-        {
-            button7.PutAwayFocus();
-            button7.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-            button7.OutputText(textBoxEnter);
-        }
-        //Нажатие на цифру 8
-        private void button8_Click(object sender, EventArgs e)
-        {
-            button8.PutAwayFocus();
-            button8.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-            button8.OutputText(textBoxEnter);
-        }
-        //Нажатие на цифру 9
-        private void button9_Click(object sender, EventArgs e)
-        {
-            button9.PutAwayFocus();
-            button9.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-            button9.OutputText(textBoxEnter);
-
-        }
-        //Нажатие на цифру 0
-        private void button0_Click(object sender, EventArgs e)
-        {
-            button0.PutAwayFocus();
-            if (!textBoxEnter.Text.Equals("0") && !newInputAllowed)
-            {
-                button0.OutputText(textBoxEnter);
-            }
-            else
-            {
-                button0.ClearInputBeforNewValue(textBoxEnter, labeloutputResalt, ref newInputAllowed);
-                button0.OutputText(textBoxEnter);
-            }
-        }
-        #endregion // 
 
         //Обработчик нажатия клавиш
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            
             switch (e.KeyCode)
             {
                 case Keys.Enter:
@@ -195,192 +116,43 @@ namespace Calculator
             }
             if (textBoxEnter.Text.Length > 20) { textBoxEnter.Text = textBoxEnter.Text.Remove(20); }
         }
-        //Функция для прибавления чисел при нажатии на кнопку
         private void buttonPlus_Click(object sender, EventArgs e)
         {
-            //Код проверяет чтобы при выводе примера не было лишнего нуля в далее аналогичный код
-            buttonPlus.PutAwayFocus();
-            //позволяет менять  математические операторы
-            textBoxEnter.Text = textBoxEnter.Text == "Превышен лимит" ? "0" : textBoxEnter.Text;
-            if (!labeloutputResalt.Text.Contains("+") && labeloutputResalt.Text != "")
-            {
-                if (!newInputAllowed)
-                    buttonEquals.PerformClick();
-                labeloutputResalt.Text = Example.Result + " + ";
-            }
-            else
-            {
-                if (Example.PreLastResult == 0 && Example.Result == 0)
-                {
-                    Example.Result = Convert.ToDouble(textBoxEnter.Text);
-                    labeloutputResalt.Text = Example.Result + " + ";
-                }
-                else
-                {
-                    if (labeloutputResalt.Text.Contains("="))
-                    {
-                        labeloutputResalt.Text = Example.Result.ToString() + "+";
-                        textBoxEnter.Text = Example.Result.ToString();
-                    }
-                    else
-                    {
-                        //решаем пример перед писвоением результата
-                        buttonEquals.PerformClick();
-                        //
-                        Example.PreLastResult = Example.Result;
-                        if (labeloutputResalt.Text.Contains("="))
-                            labeloutputResalt.Text = Example.PreLastResult.ToString() + " + ";
-                        else
-                            labeloutputResalt.Text = Example.Plus(Convert.ToDouble(textBoxEnter.Text)).ToString() + " + ";
-                        textBoxEnter.Text = Example.PreLastResult.ToString();
-                    }
-                }
-            }
-            textBoxEnter.Text = Example.CheckBigValue(textBoxEnter);
-            newInputAllowed = true;
+            HandleOperatorButton(Example.Plus, "+", buttonPlus.PutAwayFocus);
         }
-        //Функция для вычитания при нажатии на кнопку
         private void buttonMinus_Click(object sender, EventArgs e)
         {
-            buttonPlus.PutAwayFocus();
-            textBoxEnter.Text = textBoxEnter.Text == "Превышен лимит" ? "0" : textBoxEnter.Text;
-            if (!labeloutputResalt.Text.Contains("-") && labeloutputResalt.Text != "")
-            {
-                if (!newInputAllowed)
-                    buttonEquals.PerformClick();
-                labeloutputResalt.Text = Example.Result + " - ";
-            }
-            else
-            {
-                if (Example.PreLastResult == 0 && Example.Result == 0)
-                {
-                    Example.Result = Convert.ToDouble(textBoxEnter.Text);
-                    labeloutputResalt.Text = Example.Result + " - ";
-                }
-                else
-                {
-                    if (labeloutputResalt.Text.Contains("="))
-                    {
-                        labeloutputResalt.Text = Example.Result.ToString() + " - ";
-                        textBoxEnter.Text = Example.Result.ToString();
-                    }
-                    else
-                    {
-                        buttonEquals.PerformClick();
-                        Example.PreLastResult = Example.Result;
-                        if (labeloutputResalt.Text.Contains("="))
-                            labeloutputResalt.Text = Example.PreLastResult.ToString() + " - ";
-                        else
-                            labeloutputResalt.Text = Example.Minus(Convert.ToDouble(textBoxEnter.Text)).ToString() + " - ";
-                        textBoxEnter.Text = Example.PreLastResult.ToString();
-                    }
-                }
-            }
-            textBoxEnter.Text = Example.CheckBigValue(textBoxEnter);
-            newInputAllowed = true;
+            
+            HandleOperatorButton(Example.Minus, "-", buttonMinus.PutAwayFocus);
         }
-        //Функция для умножения при нажатии на кнопку
         private void buttonMultiply_Click(object sender, EventArgs e)
         {
-            buttonPlus.PutAwayFocus();
-            textBoxEnter.Text = textBoxEnter.Text == "Превышен лимит" ? "0" : textBoxEnter.Text;
-            if (!labeloutputResalt.Text.Contains("*") && labeloutputResalt.Text != "") 
-            {
-                if (!newInputAllowed)
-                    buttonEquals.PerformClick();
-                labeloutputResalt.Text = Example.Result + " * ";
-            }
-            else
-            {
-                if (Example.PreLastResult == 0 && Example.Result == 0)
-                {
-                    Example.Result = Convert.ToDouble(textBoxEnter.Text);
-                    labeloutputResalt.Text = Example.Result + " * ";
-                }
-                else
-                {
-                    if (labeloutputResalt.Text.Contains("="))
-                    {
-                        labeloutputResalt.Text = Example.Result.ToString() + "*";
-                        textBoxEnter.Text = Example.Result.ToString();
-                    }
-                    else
-                    {
-                        buttonEquals.PerformClick();
-                        Example.PreLastResult = Example.Result;
-                        if (labeloutputResalt.Text.Contains("="))
-                            labeloutputResalt.Text = Example.PreLastResult.ToString() + " * ";
-                        else
-                            labeloutputResalt.Text = Example.Multiply(Convert.ToDouble(textBoxEnter.Text)).ToString() + " * ";
-                        textBoxEnter.Text = Example.PreLastResult.ToString();
-                    }
-                }
-            }
-            textBoxEnter.Text = Example.CheckBigValue(textBoxEnter);
-            newInputAllowed = true;
+            HandleOperatorButton(Example.Multiply, "*", buttonMultiply.PutAwayFocus);
         }
-        //Функция для деления при нажатии на кнопку
         private void buttonDivision_Click(object sender, EventArgs e)
         {
-            buttonPlus.PutAwayFocus();
-            textBoxEnter.Text = textBoxEnter.Text == "Превышен лимит" ? "0" : textBoxEnter.Text;
-            if (!labeloutputResalt.Text.Contains("/") && labeloutputResalt.Text != "")
-            {
-                if(!newInputAllowed)
-                    buttonEquals.PerformClick();
-                labeloutputResalt.Text = Example.Result + " / "; 
-            }
-            else
-            {
-                if (labeloutputResalt.Text.Contains("="))
-                {
-                    labeloutputResalt.Text = Example.Result.ToString() + " / ";
-                    textBoxEnter.Text = Example.Result.ToString();
-                }
-                else
-                {
-                    if (Example.PreLastResult == 0 && Example.Result == 0)
-                    {
-
-                        Example.PreLastResult = Example.Result;
-                        Example.Result = Convert.ToDouble(textBoxEnter.Text);
-                        labeloutputResalt.Text = Example.Result + " / ";
-                    }
-                    else
-                    {
-
-                        buttonEquals.PerformClick();
-                        Example.PreLastResult = Example.PreLastResult == 0 ? Convert.ToDouble(textBoxEnter.Text) : Example.Result;
-                        if (labeloutputResalt.Text.Contains("="))
-                            labeloutputResalt.Text = Example.PreLastResult.ToString() + " / ";
-                        else
-                            labeloutputResalt.Text = Example.Division(Convert.ToDouble(textBoxEnter.Text)).ToString() + " / ";
-                        textBoxEnter.Text = Example.PreLastResult.ToString();
-                    }
-                }
-            }
-            textBoxEnter.Text = Example.CheckBigValue(textBoxEnter);
-            newInputAllowed = true;
+            
+            HandleOperatorButton(Example.Division, "/", buttonDivision.PutAwayFocus);
         }
-       //Функция вывода результата при нажатии на кнопку
         private void buttonEquals_Click(object sender, EventArgs e)
         {
             buttonPlus.PutAwayFocus();
             newInputAllowed = true;
             if (textBoxEnter.Text == "Превышен лимит")
+            {
                 buttonDelete.PerformClick();
+                return;
+            }
+            if(string.IsNullOrWhiteSpace(textBoxEnter.Text))
+                return;
             Example.PreLastResult = Example.Result;
-            if (labeloutputResalt.Text.Contains("/")) { Example.Division(Convert.ToDouble(textBoxEnter.Text)); }
-            else if (labeloutputResalt.Text.Contains("*")) { Example.Multiply(Convert.ToDouble(textBoxEnter.Text)); }
-            else if (labeloutputResalt.Text.Contains("+")) { Example.Plus(Convert.ToDouble(textBoxEnter.Text)); }
-            else if (!labeloutputResalt.Text.Contains("  -") && labeloutputResalt.Text.Contains("-")) { Example.Minus(Convert.ToDouble(textBoxEnter.Text)); }
-            labeloutputResalt.Text = Example.TextViewExmpl;
+            Example.Calculate(labelOutputResult.Text, Convert.ToDouble(textBoxEnter.Text));
+            labelOutputResult.Text = Example.TextViewExmpl;
             textBoxEnter.Text = Example.Result.ToString();
-            Example.Result = Convert.ToDouble(textBoxEnter.Text);
             textBoxEnter.Text = Example.CheckBigValue(textBoxEnter);
 
         }
-        //Функция для стирания одного числа при нажатии на кнопку   23.1235
+        //Функция для стирания одного числа при нажатии на кнопку
         private void buttonCorrect_Click(object sender, EventArgs e)
         {
             buttonCorrect.PutAwayFocus();
@@ -389,7 +161,7 @@ namespace Calculator
             if(textBoxEnter.Text.Length < 1)
             {
                 newInputAllowed = true;
-                textBoxEnter.Text = textBoxEnter.Text.Length < 1 ? "0" : textBoxEnter.Text;
+                textBoxEnter.Text = "0";
             }
         }
         //Функция для удаления данных примера и очистка поля вывода - ввода
@@ -399,16 +171,14 @@ namespace Calculator
             newInputAllowed = true;
             textBoxEnter.Text = "0";
         }
-        //Функция очишает чтроку ввода
+        //Функция очищает строку ввода
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             buttonDelete.PutAwayFocus();
             newInputAllowed = true;
             textBoxEnter.Text = "0";
-            labeloutputResalt.Text = "";
-            Example.PreLastResult = 0;
-            Example.Result = 0;
-            Example.TextViewExmpl = "";
+            labelOutputResult.Text = string.Empty;
+            Example.Clear();
         }
 
         private void buttonComma_Click(object sender, EventArgs e)
@@ -422,8 +192,8 @@ namespace Calculator
         private void buttonModule_Click(object sender, EventArgs e)
         {
             buttonModule.PutAwayFocus();
-            if (labeloutputResalt.Text.Contains("="))
-                labeloutputResalt.Text = "";
+            if (labelOutputResult.Text.Contains("="))
+                labelOutputResult.Text = "";
             textBoxEnter.Text = (Convert.ToDouble(textBoxEnter.Text) * -1).ToString();
             Example.Result = Convert.ToDouble(textBoxEnter.Text);
             Example.TextViewExmpl = "  " + Example.Result + " = ";
@@ -433,6 +203,71 @@ namespace Calculator
         {
             textBoxEnter.TabStop = false;
             ActiveControl = null;
+        }
+        
+        private void HandleOperatorButton(Func<double, double> operationFunc, string operatorSymbol, Action focusAction)
+        {
+            focusAction?.Invoke();
+
+            textBoxEnter.Text = textBoxEnter.Text == "Превышен лимит" ? "0" : textBoxEnter.Text;
+
+            if (TryAppendOperator(operatorSymbol)
+                || InitializeOperationIfZero(operatorSymbol)
+                || TryPrepareForNewOperation(operatorSymbol))
+                return;
+
+            buttonEquals.PerformClick();
+            Example.PreLastResult = Example.Result;
+            HandleOperator(operationFunc, operatorSymbol);
+
+            textBoxEnter.Text = Example.CheckBigValue(textBoxEnter);
+            newInputAllowed = true;
+        }
+        private bool TryAppendOperator(string operatorSymbol)
+        {
+            if (!labelOutputResult.Text.Contains(operatorSymbol) && !string.IsNullOrWhiteSpace(labelOutputResult.Text))
+            {
+                if(!newInputAllowed)
+                    buttonEquals.PerformClick();
+                labelOutputResult.Text = Example.Result + operatorSymbol;
+                return true;
+            }
+            return false;
+        }
+        private bool TryPrepareForNewOperation(string operatorSymbol)
+        {
+            if (labelOutputResult.Text.Contains("="))
+            {
+                labelOutputResult.Text = Example.Result + $" {operatorSymbol} ";
+                textBoxEnter.Text = Example.Result.ToString();
+                return true;
+            }
+            return false;
+        }
+
+        private void HandleOperator(Func<double, double> operationFunc, string operatorSymbol)
+        {
+            if (labelOutputResult.Text.Contains("="))
+                labelOutputResult.Text = Example.PreLastResult + $" {operatorSymbol} ";
+            else if(string.IsNullOrWhiteSpace(textBoxEnter.Text))
+                labelOutputResult.Text = operationFunc.Invoke(Convert.ToDouble(textBoxEnter.Text)) + $" {operatorSymbol} ";
+            textBoxEnter.Text = string.Empty;
+        }
+        private bool InitializeOperationIfZero(string operatorSymbol)
+        {
+            if (Example.PreLastResult == 0 && Example.Result == 0)
+            {
+                Example.Result = Convert.ToDouble(textBoxEnter.Text);
+                labelOutputResult.Text = Example.Result + $"{operatorSymbol}";
+                return true;
+            }
+            return false;
+        }
+        private void ButtonNumberClick(object sender, EventArgs e)
+        {
+            ((Button)sender).PutAwayFocus();
+            ((Button)sender).ClearInputBeforNewValue(textBoxEnter, labelOutputResult,ref newInputAllowed);
+            ((Button)sender).OutputText(textBoxEnter);
         }
     }
 }

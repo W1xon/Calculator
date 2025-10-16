@@ -51,7 +51,7 @@ namespace Calculator
             this.buttonCorrect = new System.Windows.Forms.Button();
             this.buttonDivision = new System.Windows.Forms.Button();
             this.textBoxEnter = new System.Windows.Forms.TextBox();
-            this.labeloutputResalt = new System.Windows.Forms.Label();
+            this.labelOutputResult = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -66,7 +66,6 @@ namespace Calculator
             this.button1.TabStop = false;
             this.button1.Text = "1";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -80,7 +79,6 @@ namespace Calculator
             this.button2.TabStop = false;
             this.button2.Text = "2";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -94,7 +92,6 @@ namespace Calculator
             this.button3.TabStop = false;
             this.button3.Text = "3";
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button6
             // 
@@ -108,7 +105,6 @@ namespace Calculator
             this.button6.TabStop = false;
             this.button6.Text = "6";
             this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
@@ -122,7 +118,6 @@ namespace Calculator
             this.button5.TabStop = false;
             this.button5.Text = "5";
             this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -136,7 +131,6 @@ namespace Calculator
             this.button4.TabStop = false;
             this.button4.Text = "4";
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button9
             // 
@@ -150,7 +144,6 @@ namespace Calculator
             this.button9.TabStop = false;
             this.button9.Text = "9";
             this.button9.UseVisualStyleBackColor = false;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button8
             // 
@@ -164,7 +157,6 @@ namespace Calculator
             this.button8.TabStop = false;
             this.button8.Text = "8";
             this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button7
             // 
@@ -178,7 +170,6 @@ namespace Calculator
             this.button7.TabStop = false;
             this.button7.Text = "7";
             this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button0
             // 
@@ -192,7 +183,6 @@ namespace Calculator
             this.button0.TabStop = false;
             this.button0.Text = "0";
             this.button0.UseVisualStyleBackColor = false;
-            this.button0.Click += new System.EventHandler(this.button0_Click);
             // 
             // buttonModule
             // 
@@ -352,13 +342,13 @@ namespace Calculator
             // 
             // labeloutputResalt
             // 
-            this.labeloutputResalt.AutoSize = true;
-            this.labeloutputResalt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.labeloutputResalt.Location = new System.Drawing.Point(12, 70);
-            this.labeloutputResalt.Name = "labeloutputResalt";
-            this.labeloutputResalt.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labeloutputResalt.Size = new System.Drawing.Size(0, 13);
-            this.labeloutputResalt.TabIndex = 21;
+            this.labelOutputResult.AutoSize = true;
+            this.labelOutputResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.labelOutputResult.Location = new System.Drawing.Point(12, 70);
+            this.labelOutputResult.Name = "labelOutputResult";
+            this.labelOutputResult.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.labelOutputResult.Size = new System.Drawing.Size(0, 13);
+            this.labelOutputResult.TabIndex = 21;
             // 
             // Form1
             // 
@@ -366,7 +356,7 @@ namespace Calculator
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
             this.ClientSize = new System.Drawing.Size(324, 487);
-            this.Controls.Add(this.labeloutputResalt);
+            this.Controls.Add(this.labelOutputResult);
             this.Controls.Add(this.textBoxEnter);
             this.Controls.Add(this.buttonDivision);
             this.Controls.Add(this.buttonCorrect);
@@ -421,7 +411,7 @@ namespace Calculator
         private System.Windows.Forms.Button buttonCorrect;
         private System.Windows.Forms.Button buttonDivision;
         private System.Windows.Forms.TextBox textBoxEnter;
-        private System.Windows.Forms.Label labeloutputResalt;
+        private System.Windows.Forms.Label labelOutputResult;
     }
 }
 

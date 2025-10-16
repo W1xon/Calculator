@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Calculator
 {
@@ -39,6 +34,22 @@ namespace Calculator
             TextViewExmpl = PreLastResult + " - " + number + " = ";
             Result = Result - number;
             return Result;
+        }
+
+        public static void Clear()
+        {
+            PreLastResult = 0;
+            Result = 0;
+            TextViewExmpl = "";
+        }
+
+        public static void Calculate(string labelResult, double number)
+        {
+            if (labelResult.Contains("/")) { Division(number); }
+            else if (labelResult.Contains("*")) { Multiply(number); }
+            else if (labelResult.Contains("+")) { Plus(number); }
+            else if (labelResult.Contains("-")) { Minus(number); }
+
         }
         public static string CheckBigValue(TextBox textBox)
         {
